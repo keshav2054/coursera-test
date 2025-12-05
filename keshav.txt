@@ -1,1 +1,26 @@
-
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "name": "Filtered Failed Requests",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "requests\n| where cloud_RoleName == '{parameters.cloud_RoleName}'\n| where success == false\n| project timestamp, operation_Name, resultCode, cloud_RoleName, url, duration, message\n| order by timestamp desc",
+        "resourceType": "microsoft.insights/components",
+        "crossComponentResources": [],
+        "gridSettings": {
+          "filter": true,
+          "labelSettings": {
+            "show": false
+          }
+        }
+      }
+    }
+  ],
+  "parameters": {
+    "cloud_RoleName": {
+      "value": ""
+    }
+  }
+}
