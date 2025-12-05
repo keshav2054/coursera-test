@@ -2,7 +2,7 @@
   "version": "Notebook/1.0",
   "parameters": {
     "cloud_RoleName": {
-      "value": "{query3:cloud_RoleName}"
+      "value": "`<unset>`"
     }
   },
   "items": [
