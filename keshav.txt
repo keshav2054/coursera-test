@@ -2,54 +2,33 @@
   "BladeName": "searchV1",
   "ResourceId": "%2Fsubscriptions%2Fe4f24418-5423-4c74-bbd3-d2e610a8bac8%2FresourceGroups%2Frg-cis-dev-001%2Fproviders%2Fmicrosoft.insights%2Fcomponents%2Fins-cis-001-dev",
   "BladeInputs": {
+    "searchPhrase": {
+      "originalPhrase": "{{value}}",
+      "_tokens": [
+        {
+          "conjunction": "and",
+          "value": "{{value}}",
+          "kql": "* has \"{{value}}\""
+        }
+      ]
+    },
     "tables": [
       "requests"
     ],
-    "timeContextWhereClause": "| where timestamp > datetime(\"2025-11-28T10:00:24.453Z\") and timestamp < datetime(\"2025-12-05T10:00:24.453Z\")",
-    "filterWhereClause": "| where success in (\"False\") | where * has \"{{value}}\" | order by timestamp desc",
-    "originalParams": {
-      "eventTypes": [
-        {
-          "value": "request",
-          "tableName": "requests",
-          "label": "Request"
-        }
-      ],
-      "timeContext": {
-        "durationMs": 604800000
-      },
-      "filter": [
-        {
-          "dimension": {
-            "displayName": "Successful request",
-            "tables": [
-              "requests"
-            ],
-            "name": "request/success",
-            "draftKey": "request/success"
-          },
-          "values": [
-            "False"
-          ],
-          "operator": {
-            "label": "=",
-            "value": "==",
-            "isSelected": true
-          }
-        }
-      ],
-      "searchPhrase": {
-        "originalPhrase": "{{value}}",
-        "_tokens": [
-          {
-            "conjunction": "and",
-            "value": "{{value}}",
-            "isNot": false,
-            "kql": " * has \"{{value}}\""
-          }
-        ]
-      },
-      "sort": "desc"
+    "sort": "desc",
+    "filter": [
+      {
+        "dimension": {
+          "displayName": "Successful request",
+          "tables": [ "requests" ],
+          "name": "request/success"
+        },
+        "values": [ "False" ],
+        "operator": { "label": "=", "value": "==" }
+      }
+    ],
+    "timeContext": {
+      "durationMs": 604800000
     }
   }
 }
