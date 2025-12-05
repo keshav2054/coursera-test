@@ -1,91 +1,19 @@
 {
-  "BladeName": "searchV1",
-  
-  "parameters":{
-		"cloud_RoleName":{
-     "value":"{query3:cloud_RoleName}"
-		}
-	},
-  "ResourceId": "%2Fsubscriptions%2Fe4f24418-5423-4c74-bbd3-d2e610a8bac8%2FresourceGroups%2Frg-cis-dev-001%2Fproviders%2Fmicrosoft.insights%2Fcomponents%2Fins-cis-001-dev",
-  "BladeInputs": {
-    "tables": [
-      "requests"
-    ],
-    "timeContextWhereClause": "| where timestamp > datetime(\"2025-11-28T10:00:24.453Z\") and timestamp < datetime(\"2025-12-05T10:00:24.453Z\")",
-    "filterWhereClause": "| where success in (\"False\")| where * has \"{{cloud_RoleName}}\"| order by timestamp desc",
-    "originalParams": {
-      "eventTypes": [
-        {
-          "value": "availabilityResult",
-          "tableName": "availabilityResults",
-          "label": "Availability"
-        },
-        {
-          "value": "request",
-          "tableName": "requests",
-          "label": "Request"
-        },
-        {
-          "value": "exception",
-          "tableName": "exceptions",
-          "label": "Exception"
-        },
-        {
-          "value": "pageView",
-          "tableName": "pageViews",
-          "label": "Page View"
-        },
-        {
-          "value": "trace",
-          "tableName": "traces",
-          "label": "Trace"
-        },
-        {
-          "value": "customEvent",
-          "tableName": "customEvents",
-          "label": "Custom Event"
-        },
-        {
-          "value": "dependency",
-          "tableName": "dependencies",
-          "label": "Dependency"
-        }
-      ],
-      "timeContext": {
-        "durationMs": 604800000
-      },
-      "filter": [
-        {
-          "dimension": {
-            "displayName": "Successful request",
-            "tables": [
-              "requests"
-            ],
-            "name": "request/success",
-            "draftKey": "request/success"
-          },
-          "values": [
-            "False"
-          ],
-          "operator": {
-            "label": "=",
-            "value": "==",
-            "isSelected": true
-          }
-        }
-      ],
-      "searchPhrase": {
-        "originalPhrase": "{{cloud_RoleName}}",
-        "_tokens": [
-          {
-            "conjunction": "and",
-            "value": "{{cloud_RoleName}}",
-            "isNot": false,
-            "kql": " * has \"{{cloud_RoleName}}\""
-          }
-        ]
-      },
-      "sort": "desc"
+  "version": "Notebook/1.0",
+  "parameters": {
+    "cloud_RoleName": {
+      "value": "{query3:cloud_RoleName}"
     }
-  }
+  },
+  "items": [
+    {
+      "type": 9,
+      "name": "Filtered Failed Requests",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "requests\n| where cloud_RoleName == '{parameters.cloud_RoleName}'\n| where success == false\n| order by timestamp desc\n| project timestamp, operation_Name, resultCode, cloud_RoleName, url, duration, message",
+        "resourceType": "microsoft.insights/components"
+      }
+    }
+  ]
 }
